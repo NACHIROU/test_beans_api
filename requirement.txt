@@ -3,3 +3,4 @@ pytest~=7.3
 black~=23.3
 requests==2.31.0
 python-dotenv
+black~=23.3

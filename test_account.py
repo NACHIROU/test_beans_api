@@ -4,6 +4,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+from samples import beans_tokens
 
 load_dotenv()
 
@@ -19,22 +20,16 @@ def test_retrieve_account(base_url):
     # assert beans_first_name == account_data["data"][0]["first_name"]
 
 
-
 def test_create_account(base_url):
-
     beans_first_name = os.getenv("BEANS_FIRSTNAME")
     beans_last_name = os.getenv("BEANS_LASTNAME")
 
-    account_data = {
-        "email":"somad.nachirou@ai.trellix.io",
-        "first_name":"NACHIROU",
-        "last_name":"Somad",
-    }
+    account_data = beans_tokens["account_data"]
 
     beans_access_token = os.getenv("BEANS_ACCESS_TOKEN")
     auth = HTTPBasicAuth(beans_access_token, "")
 
-    url = base_url +"liana/account/"
+    url = base_url + "liana/account/"
     response = requests.post(url, json=account_data, auth=auth)
     new_data = response.json()
     assert response.status_code == 201
@@ -43,14 +38,10 @@ def test_create_account(base_url):
 
 
 def test_update_account(base_url):
-    
     id = os.getenv("BEANS_ID")
-    url = base_url +"liana/account/"+str(id)
-   
-    new_account_data = {
-        "first_name":"Somad",
-        "last_name":"NACHIROU",
-    }
+    url = base_url + f"liana/account/{id}/"
+
+    new_account_data = beans_tokens["new_account_data"]
     beans_access_token = os.getenv("BEANS_ACCESS_TOKEN")
     auth = HTTPBasicAuth(beans_access_token, "")
 
